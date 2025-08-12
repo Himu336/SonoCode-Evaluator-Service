@@ -1,5 +1,5 @@
-const express = require('express');
+import express from "express";
 
 const v1Router = express.Router();
 
-module.exports = v1Router;
+export default v1Router;

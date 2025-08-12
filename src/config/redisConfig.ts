@@ -1,15 +1,12 @@
-const Redis = require('ioredis');
+import { Redis } from "ioredis";
 
-const { REDIS_HOST, REDIS_PORT } = require('../config/serverConfig');
-
+import ServerConfig from '../config/serverConfig.js';
 
 const redisConfig = {
-    prot: REDIS_PORT,
-    host: REDIS_HOST,
+    prot: ServerConfig.REDIS_PORT,
+    host: ServerConfig.REDIS_HOST,
 }
 
 const redisConnection = new Redis(redisConfig);
 
-module.exports = {
-    redisConnection
-}
+export default redisConnection;

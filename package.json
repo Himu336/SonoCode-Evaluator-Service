@@ -1,7 +1,7 @@
 {
   "name": "sonocode-evaluator-service",
   "version": "1.0.0",
-  "type":"module",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
@@ -34,6 +34,7 @@
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "ioredis": "^5.7.0",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "zod": "^4.0.17"
   }
 }

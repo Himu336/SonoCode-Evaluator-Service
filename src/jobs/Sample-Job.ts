@@ -19,7 +19,7 @@ export default class SampleJob implements IJob {
 
     failed = (job?: Job) : void => {
         console.log("Job Failed");
-        if(job){
+        if(job){    
             console.log(job.id);
         }
     };

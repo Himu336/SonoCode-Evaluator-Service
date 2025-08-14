@@ -21,10 +21,14 @@ app.listen(ServerConfig.PORT, () => {
     SampleWorker('SampleQueue');
 
     const code = `x = input()
+y=input()
 print("value of x is", x)
-for i in range(int(x)):
-    print(i)
+print("value of y is", y)
 `;
 
-    runPython(code, "100");
+const inputCase = `100
+200
+`
+
+    runPython(code, inputCase);
 });

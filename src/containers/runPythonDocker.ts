@@ -9,7 +9,7 @@ async function runPython(code: string, inputTestCase: string){
     const rawLogBuffer: Buffer[] =[];
 
     console.log("Initialising a new python docker container");
-    const runCommand = `echo '${code.replace(/'/g, `'\\"`)}' > test.py && echo ${inputTestCase} | python3 test.py`;
+    const runCommand = `echo '${code.replace(/'/g, `'\\"`)}' > test.py && echo '${inputTestCase.replace(/'/g, `'\\"`)}' | python3 test.py`;
 
     // const pythonDockerContainer = await createContainer(PYTHON_IMAGE, ['python3','-c', code, 'stty -echo']);
     const pythonDockerContainer = await createContainer(PYTHON_IMAGE, [
@@ -34,14 +34,18 @@ async function runPython(code: string, inputTestCase: string){
         rawLogBuffer.push(chunk); 
     });
 
-    loggerStream.on('end', () => {
-        console.log(rawLogBuffer);
-        const completeBuffer = Buffer.concat(rawLogBuffer);
-        const decodedStream = decodeDockerStream(completeBuffer);
-        console.log(decodedStream);
+    await new Promise((res) => {
+        loggerStream.on('end', () => {
+            console.log(rawLogBuffer);
+            const completeBuffer = Buffer.concat(rawLogBuffer);
+            const decodedStream = decodeDockerStream(completeBuffer);
+            console.log(decodedStream);
+            res(decodedStream);
+        });
     });
 
-    return pythonDockerContainer;
+    //Remove the container when done
+    await pythonDockerContainer.remove();
 }
 
 export default runPython;

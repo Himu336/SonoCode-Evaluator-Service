@@ -1,8 +1,11 @@
 import express from "express";
 import bodyParser from "body-parser";
 
+import SampleWorker from "./workers/sampleWorker.js";
+
 import ServerConfig from "./config/serverConfig.js";
 import apiRouter from "./routes/index.js";
+import runPython from "./containers/runPythonDocker.js";
 
 const app = express();
 
@@ -14,4 +17,14 @@ app.use('/api', apiRouter);
 
 app.listen(ServerConfig.PORT, () => {
     console.log(`Server started at *:${ServerConfig.PORT}`)
+
+    SampleWorker('SampleQueue');
+
+    const code = `x = input()
+print("value of x is", x)
+for i in range(int(x)):
+    print(i)
+`;
+
+    runPython(code, "100");
 });

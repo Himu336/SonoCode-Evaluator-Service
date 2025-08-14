@@ -1,14 +1,22 @@
-import { PYTHON_IMAGE } from './../utils/constants';
+import { PYTHON_IMAGE } from './../utils/constants.js';
 // import Docker from 'dockerode';
 
-import decodeDockerStream from '../containers/dockerHelper';
+import decodeDockerStream from '../containers/dockerHelper.js';
 // import type { TestCases } from '../types/testCases';
-import createContainer from './containerFactory';
+import createContainer from './containerFactory.js';
 
-async function runPython(code: string){
+async function runPython(code: string, inputTestCase: string){
     const rawLogBuffer: Buffer[] =[];
 
-    const pythonDockerContainer = await createContainer(PYTHON_IMAGE, ['python3','-c', code, 'stty -echo']);
+    console.log("Initialising a new python docker container");
+    const runCommand = `echo '${code.replace(/'/g, `'\\"`)}' > test.py && echo ${inputTestCase} | python3 test.py`;
+
+    // const pythonDockerContainer = await createContainer(PYTHON_IMAGE, ['python3','-c', code, 'stty -echo']);
+    const pythonDockerContainer = await createContainer(PYTHON_IMAGE, [
+        '/bin/sh',
+        '-c',
+        runCommand
+    ]);
 
     //booting the corresponding docker container
     await  pythonDockerContainer.start();

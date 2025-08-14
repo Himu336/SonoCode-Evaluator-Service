@@ -1,9 +1,9 @@
-import { Redis } from "ioredis";
+import Redis from "ioredis";
 
 import ServerConfig from '../config/serverConfig.js';
 
 const redisConfig = {
-    prot: ServerConfig.REDIS_PORT,
+    port: ServerConfig.REDIS_PORT,
     host: ServerConfig.REDIS_HOST,
     maxRetriesPerRequest: null,
 }

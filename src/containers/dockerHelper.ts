@@ -1,5 +1,5 @@
-import type DockerStreamOutput from "../types/dockerStreamOutput";
-import { DOCKER_STREAM_HEADER_SIZE } from "../utils/constants";
+import type DockerStreamOutput from "../types/dockerStreamOutput.js";
+import { DOCKER_STREAM_HEADER_SIZE } from "../utils/constants.js";
 
 export default function decodeDockerStream(buffer: Buffer): DockerStreamOutput {
     //This variable keeps the track od the current position in the buffer while parsing

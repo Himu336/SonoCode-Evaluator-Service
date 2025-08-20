@@ -1,4 +1,5 @@
 export const PYTHON_IMAGE= "python:3.8.10-slim";
+export const JAVA_IMAGE= "openjdk:11-jdk-slim"
 
 //This will represent the header size of the docker stream
 //Docker stream header will contain the data about type of stream

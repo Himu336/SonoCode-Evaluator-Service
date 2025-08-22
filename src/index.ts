@@ -5,7 +5,8 @@ import SampleWorker from "./workers/sampleWorker.js";
 
 import ServerConfig from "./config/serverConfig.js";
 import apiRouter from "./routes/index.js";
-import runPython from "./containers/runPythonDocker.js";
+import SubmissionWorker from "./workers/submissionWorker.js";
+import submissionQueueProducer from "./producers/submissionQueueProducer.js";
 
 const app = express();
 
@@ -19,16 +20,42 @@ app.listen(ServerConfig.PORT, () => {
     console.log(`Server started at *:${ServerConfig.PORT}`)
 
     SampleWorker('SampleQueue');
+    SubmissionWorker('SubmissionQueue');
 
-    const code = `x = input()
-y=input()
-print("value of x is", x)
-print("value of y is", y)
-`;
+    const usercode = `
+    class Solution {
+        public:
+        vector<int> permute(){
+        vector<int> v;
+        v.push_back(10);
+        return v;
+        }
+    };
+    `
+    const code = `
+    #include <iostream>
+    #include <vector>
+    using namespace std;
 
+    ${usercode}
+
+    int main(){
+    
+        Solution s;
+        vector<int> result = s.permute();
+        for(int x: result){
+            cout<<x<<" "; 
+        }
+        cout<<endl;
+        return 0;
+    }
+    `
 const inputCase = `100
-200
 `
 
-    runPython(code, inputCase);
+    submissionQueueProducer({"1234": {
+        language: "CPP",
+        inputCase,
+        code
+    }});
 });

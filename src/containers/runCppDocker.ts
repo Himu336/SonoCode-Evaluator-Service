@@ -1,7 +1,7 @@
 import { CPP_IMAGE } from '../utils/constants.js';
 // import Docker from 'dockerode';
 
-import pullImage from './pullImage';
+import pullImage from './pullImage.js';
 import decodeDockerStream from './dockerHelper.js';
 // import type { TestCases } from '../types/testCases';
 import createContainer from './containerFactory.js';
@@ -37,7 +37,7 @@ async function runCpp(code: string, inputTestCase: string){
         rawLogBuffer.push(chunk); 
     });
 
-    await new Promise((res) => {
+    const response = await new Promise((res) => {
         loggerStream.on('end', () => {
             console.log(rawLogBuffer);
             const completeBuffer = Buffer.concat(rawLogBuffer);
@@ -49,6 +49,7 @@ async function runCpp(code: string, inputTestCase: string){
 
     //Remove the container when done
     await cppDockerContainer.remove();
+    return response;
 }
 
 export default runCpp;

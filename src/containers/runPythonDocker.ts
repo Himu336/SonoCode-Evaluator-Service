@@ -1,7 +1,7 @@
 import { PYTHON_IMAGE } from './../utils/constants.js';
 // import Docker from 'dockerode';
 
-import pullImage from './pullImage';
+import pullImage from './pullImage.js';
 import decodeDockerStream from '../containers/dockerHelper.js';
 // import type { TestCases } from '../types/testCases';
 import createContainer from './containerFactory.js';

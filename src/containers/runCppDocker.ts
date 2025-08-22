@@ -1,12 +1,15 @@
 import { CPP_IMAGE } from '../utils/constants.js';
 // import Docker from 'dockerode';
 
+import pullImage from './pullImage';
 import decodeDockerStream from './dockerHelper.js';
 // import type { TestCases } from '../types/testCases';
 import createContainer from './containerFactory.js';
 
 async function runCpp(code: string, inputTestCase: string){
     const rawLogBuffer: Buffer[] =[]; 
+
+    await pullImage(CPP_IMAGE);
 
     console.log("Initialising a new cpp docker container");
     const runCommand = `echo '${code.replace(/'/g, `'\\"`)}' > main.cpp && g++ main.cpp -o main && echo '${inputTestCase.replace(/'/g, `'\\"`)}' | ./main`;

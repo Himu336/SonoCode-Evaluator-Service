@@ -1,12 +1,15 @@
 import { PYTHON_IMAGE } from './../utils/constants.js';
 // import Docker from 'dockerode';
 
+import pullImage from './pullImage';
 import decodeDockerStream from '../containers/dockerHelper.js';
 // import type { TestCases } from '../types/testCases';
 import createContainer from './containerFactory.js';
 
 async function runPython(code: string, inputTestCase: string){
     const rawLogBuffer: Buffer[] =[];
+
+    await pullImage(PYTHON_IMAGE);
 
     console.log("Initialising a new python docker container");
     const runCommand = `echo '${code.replace(/'/g, `'\\"`)}' > test.py && echo '${inputTestCase.replace(/'/g, `'\\"`)}' | python3 test.py`;

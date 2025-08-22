@@ -1,12 +1,15 @@
 import { JAVA_IMAGE } from '../utils/constants.js';
 // import Docker from 'dockerode';
 
+import pullImage from './pullImage.js';
 import decodeDockerStream from './dockerHelper.js';
 // import type { TestCases } from '../types/testCases';
 import createContainer from './containerFactory.js';
 
 async function runJava(code: string, inputTestCase: string){
     const rawLogBuffer: Buffer[] =[];
+
+    await pullImage(JAVA_IMAGE);
 
     console.log("Initialising a new java docker container");
     const runCommand = `echo '${code.replace(/'/g, `'\\"`)}' > Main.java && javac Main.java && echo '${inputTestCase.replace(/'/g, `'\\"`)}' | java.Main`;

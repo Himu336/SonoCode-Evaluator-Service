@@ -9,7 +9,8 @@ import type {ExecutionResponse} from '../types/CodeExecutorStrategy.js';
 
 class PythonExecutor implements CodeExecutorStrategy{
 
-    async execute(code: string, inputTestCase: string): Promise<ExecutionResponse> {
+    async execute(code: string, inputTestCase: string, outputTestCase: string): Promise<ExecutionResponse> {
+        console.log(code, inputTestCase, outputTestCase);
         const rawLogBuffer: Buffer[] =[];
 
         await pullImage(PYTHON_IMAGE);

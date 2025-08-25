@@ -1,16 +1,16 @@
-import CppExecutor from "../containers/cppExecutor";
-import JavaExecutor from "../containers/javaExecutor";
-import PythonExecutor from "../containers/pythonExecutor";
-import type CodeExecutorStrategy from "../types/CodeExecutorStrategy";
+import CppExecutor from "../containers/cppExecutor.js";
+import JavaExecutor from "../containers/javaExecutor.js";
+import PythonExecutor from "../containers/pythonExecutor.js";
+import type CodeExecutorStrategy from "../types/CodeExecutorStrategy.js";
 
 export default function createExecutor(codeLanguage: string): CodeExecutorStrategy | null {
-    if(codeLanguage === "PYTHON"){
+    if(codeLanguage.toLowerCase() === "python"){
         return new PythonExecutor();
     }
-    else if(codeLanguage === "JAVA"){
+    else if(codeLanguage.toLowerCase() === "java"){
         return new JavaExecutor();
     }
-    else if(codeLanguage === "CPP"){
+    else if(codeLanguage.toLowerCase() === "cpp"){
         return new CppExecutor();
     }
     else {

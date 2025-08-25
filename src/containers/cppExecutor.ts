@@ -10,13 +10,14 @@ import type { ExecutionResponse } from '../types/CodeExecutorStrategy.js';
 
 class CppExecutor implements CodeExecutorStrategy{
 
-    async execute(code: string, inputTestCase: string): Promise<ExecutionResponse> {
+    async execute(code: string, inputTestCase: string, outputTestCase: string): Promise<ExecutionResponse> {
+        console.log(code, inputTestCase, outputTestCase);
         const rawLogBuffer: Buffer[] =[];
 
         await pullImage(CPP_IMAGE);
 
         console.log("Initialising a new Cpp docker container");
-        const runCommand = `echo '${code.replace(/'/g, `'\\"`)}' > test.py && echo '${inputTestCase.replace(/'/g, `'\\"`)}' | python3 test.py`;
+        const runCommand = `echo '${code.replace(/'/g, "'\\''")}' > main.cpp && g++ main.cpp -o main && echo '${inputTestCase.replace(/'/g, "'\\''")}' | ./main`;
 
         // const cppDockerContainer = await createContainer(CPP_IMAGE, ['java3','-c', code, 'stty -echo']);
         const cppDockerContainer = await createContainer(CPP_IMAGE, [

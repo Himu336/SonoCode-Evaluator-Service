@@ -10,7 +10,8 @@ import type { ExecutionResponse } from '../types/CodeExecutorStrategy.js';
 
 class JavaExecutor implements CodeExecutorStrategy{
 
-    async execute(code: string, inputTestCase: string): Promise<ExecutionResponse> {
+    async execute(code: string, inputTestCase: string, outputTestCase: string): Promise<ExecutionResponse> {
+        console.log(code, inputTestCase, outputTestCase);
         const rawLogBuffer: Buffer[] =[];
 
         await pullImage(JAVA_IMAGE);

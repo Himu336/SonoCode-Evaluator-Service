@@ -1,8 +1,8 @@
-import { PYTHON_IMAGE } from './../utils/constants.js';
+import { PYTHON_IMAGE } from '../utils/constants.js';
 // import Docker from 'dockerode';
 import type CodeExecutorStrategy from '../types/CodeExecutorStrategy.js';
 import pullImage from './pullImage.js';
-import decodeDockerStream from '../containers/dockerHelper.js';
+import decodeDockerStream from './dockerHelper.js';
 // import type { TestCases } from '../types/testCases';
 import createContainer from './containerFactory.js';
 import type {ExecutionResponse} from '../types/CodeExecutorStrategy.js';

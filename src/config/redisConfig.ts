@@ -8,6 +8,10 @@ const redisConfig = {
     maxRetriesPerRequest: null,
 }
 
-const redisConnection = new Redis(redisConfig);
+const redisUrl = process.env.REDIS_URL;
+
+const redisConnection = redisUrl
+    ? new Redis(redisUrl, { maxRetriesPerRequest: null })
+    : new Redis(redisConfig);
 
 export default redisConnection;

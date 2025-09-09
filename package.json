@@ -28,6 +28,8 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@bull-board/api": "^6.12.6",
+    "@bull-board/express": "^6.12.6",
     "@types/dockerode": "^3.3.42",
     "@types/ioredis": "^4.28.10",
     "bullmq": "^5.56.10",
